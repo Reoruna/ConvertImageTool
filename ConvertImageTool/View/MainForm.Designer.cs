@@ -29,33 +29,31 @@ namespace ConvertImageTool
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.BrightnessAndContrastTab = new System.Windows.Forms.TabPage();
-            this.InputPathText = new System.Windows.Forms.TextBox();
-            this.ReferInputButton = new System.Windows.Forms.Button();
-            this.OutputPictureBox = new System.Windows.Forms.PictureBox();
-            this.InputPictureBox = new System.Windows.Forms.PictureBox();
-            this.ControlPanel = new System.Windows.Forms.Panel();
-            this.OutPutButton = new System.Windows.Forms.Button();
-            this.GammaTab = new System.Windows.Forms.TabPage();
             this.OpenInputFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.OpenOutputFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tabControl1.SuspendLayout();
+            this.BrightnessAndContrastTab = new System.Windows.Forms.TabPage();
+            this.ControlPanel = new System.Windows.Forms.Panel();
+            this.OutputButton = new System.Windows.Forms.Button();
+            this.ConvertMethodComboBox = new System.Windows.Forms.ComboBox();
+            this.InputPictureBox = new System.Windows.Forms.PictureBox();
+            this.OutputPictureBox = new System.Windows.Forms.PictureBox();
+            this.ReferInputButton = new System.Windows.Forms.Button();
+            this.InputPathText = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.BrightnessAndContrastTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
             this.ControlPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputPictureBox)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // OpenInputFileDialog
             // 
-            this.tabControl1.Controls.Add(this.BrightnessAndContrastTab);
-            this.tabControl1.Controls.Add(this.GammaTab);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1086, 426);
-            this.tabControl1.TabIndex = 0;
+            this.OpenInputFileDialog.FileName = "OpenInputFileDialog";
+            // 
+            // OpenOutputFileDialog
+            // 
+            this.OpenOutputFileDialog.FileName = "OpenOutputFileDialog";
             // 
             // BrightnessAndContrastTab
             // 
@@ -72,13 +70,52 @@ namespace ConvertImageTool
             this.BrightnessAndContrastTab.Text = "Brightness and contrast";
             this.BrightnessAndContrastTab.UseVisualStyleBackColor = true;
             // 
-            // InputPathText
+            // ControlPanel
             // 
-            this.InputPathText.Location = new System.Drawing.Point(92, 373);
-            this.InputPathText.Name = "InputPathText";
-            this.InputPathText.ReadOnly = true;
-            this.InputPathText.Size = new System.Drawing.Size(274, 19);
-            this.InputPathText.TabIndex = 1;
+            this.ControlPanel.Controls.Add(this.ConvertMethodComboBox);
+            this.ControlPanel.Controls.Add(this.OutputButton);
+            this.ControlPanel.Location = new System.Drawing.Point(372, 6);
+            this.ControlPanel.Name = "ControlPanel";
+            this.ControlPanel.Size = new System.Drawing.Size(334, 360);
+            this.ControlPanel.TabIndex = 0;
+            // 
+            // OutputButton
+            // 
+            this.OutputButton.Location = new System.Drawing.Point(66, 324);
+            this.OutputButton.Name = "OutputButton";
+            this.OutputButton.Size = new System.Drawing.Size(216, 33);
+            this.OutputButton.TabIndex = 0;
+            this.OutputButton.Text = "出力";
+            this.OutputButton.UseVisualStyleBackColor = true;
+            this.OutputButton.Click += new System.EventHandler(this.OutputButton_Click);
+            // 
+            // ConvertMethodComboBox
+            // 
+            this.ConvertMethodComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ConvertMethodComboBox.FormattingEnabled = true;
+            this.ConvertMethodComboBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ConvertMethodComboBox.Location = new System.Drawing.Point(15, 12);
+            this.ConvertMethodComboBox.Name = "ConvertMethodComboBox";
+            this.ConvertMethodComboBox.Size = new System.Drawing.Size(191, 20);
+            this.ConvertMethodComboBox.TabIndex = 3;
+            // 
+            // InputPictureBox
+            // 
+            this.InputPictureBox.BackColor = System.Drawing.Color.DimGray;
+            this.InputPictureBox.Location = new System.Drawing.Point(6, 6);
+            this.InputPictureBox.Name = "InputPictureBox";
+            this.InputPictureBox.Size = new System.Drawing.Size(360, 360);
+            this.InputPictureBox.TabIndex = 1;
+            this.InputPictureBox.TabStop = false;
+            // 
+            // OutputPictureBox
+            // 
+            this.OutputPictureBox.BackColor = System.Drawing.Color.DimGray;
+            this.OutputPictureBox.Location = new System.Drawing.Point(712, 6);
+            this.OutputPictureBox.Name = "OutputPictureBox";
+            this.OutputPictureBox.Size = new System.Drawing.Size(360, 360);
+            this.OutputPictureBox.TabIndex = 1;
+            this.OutputPictureBox.TabStop = false;
             // 
             // ReferInputButton
             // 
@@ -90,58 +127,22 @@ namespace ConvertImageTool
             this.ReferInputButton.UseVisualStyleBackColor = true;
             this.ReferInputButton.Click += new System.EventHandler(this.ReferInputButton_Click);
             // 
-            // OutputPictureBox
+            // InputPathText
             // 
-            this.OutputPictureBox.BackColor = System.Drawing.Color.DimGray;
-            this.OutputPictureBox.Location = new System.Drawing.Point(712, 6);
-            this.OutputPictureBox.Name = "OutputPictureBox";
-            this.OutputPictureBox.Size = new System.Drawing.Size(360, 360);
-            this.OutputPictureBox.TabIndex = 1;
-            this.OutputPictureBox.TabStop = false;
+            this.InputPathText.Location = new System.Drawing.Point(92, 373);
+            this.InputPathText.Name = "InputPathText";
+            this.InputPathText.ReadOnly = true;
+            this.InputPathText.Size = new System.Drawing.Size(274, 19);
+            this.InputPathText.TabIndex = 1;
             // 
-            // InputPictureBox
+            // tabControl1
             // 
-            this.InputPictureBox.BackColor = System.Drawing.Color.DimGray;
-            this.InputPictureBox.Location = new System.Drawing.Point(6, 6);
-            this.InputPictureBox.Name = "InputPictureBox";
-            this.InputPictureBox.Size = new System.Drawing.Size(360, 360);
-            this.InputPictureBox.TabIndex = 1;
-            this.InputPictureBox.TabStop = false;
-            // 
-            // ControlPanel
-            // 
-            this.ControlPanel.Controls.Add(this.OutPutButton);
-            this.ControlPanel.Location = new System.Drawing.Point(372, 6);
-            this.ControlPanel.Name = "ControlPanel";
-            this.ControlPanel.Size = new System.Drawing.Size(334, 360);
-            this.ControlPanel.TabIndex = 0;
-            // 
-            // OutPutButton
-            // 
-            this.OutPutButton.Location = new System.Drawing.Point(45, 307);
-            this.OutPutButton.Name = "OutPutButton";
-            this.OutPutButton.Size = new System.Drawing.Size(245, 39);
-            this.OutPutButton.TabIndex = 0;
-            this.OutPutButton.Text = "出力";
-            this.OutPutButton.UseVisualStyleBackColor = true;
-            // 
-            // GammaTab
-            // 
-            this.GammaTab.Location = new System.Drawing.Point(4, 22);
-            this.GammaTab.Name = "GammaTab";
-            this.GammaTab.Padding = new System.Windows.Forms.Padding(3);
-            this.GammaTab.Size = new System.Drawing.Size(1078, 400);
-            this.GammaTab.TabIndex = 1;
-            this.GammaTab.Text = "Gamma";
-            this.GammaTab.UseVisualStyleBackColor = true;
-            // 
-            // OpenInputFileDialog
-            // 
-            this.OpenInputFileDialog.FileName = "OpenInputFileDialog";
-            // 
-            // OpenOutputFileDialog
-            // 
-            this.OpenOutputFileDialog.FileName = "OpenOutputFileDialog";
+            this.tabControl1.Controls.Add(this.BrightnessAndContrastTab);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1086, 426);
+            this.tabControl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -151,29 +152,28 @@ namespace ConvertImageTool
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
             this.Text = "Form1";
-            this.tabControl1.ResumeLayout(false);
             this.BrightnessAndContrastTab.ResumeLayout(false);
             this.BrightnessAndContrastTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).EndInit();
             this.ControlPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputPictureBox)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.OpenFileDialog OpenInputFileDialog;
+        private System.Windows.Forms.OpenFileDialog OpenOutputFileDialog;
         private System.Windows.Forms.TabPage BrightnessAndContrastTab;
-        private System.Windows.Forms.TabPage GammaTab;
+        private System.Windows.Forms.TextBox InputPathText;
+        private System.Windows.Forms.Button ReferInputButton;
         private System.Windows.Forms.PictureBox OutputPictureBox;
         private System.Windows.Forms.PictureBox InputPictureBox;
         private System.Windows.Forms.Panel ControlPanel;
-        private System.Windows.Forms.Button OutPutButton;
-        private System.Windows.Forms.TextBox InputPathText;
-        private System.Windows.Forms.Button ReferInputButton;
-        private System.Windows.Forms.OpenFileDialog OpenInputFileDialog;
-        private System.Windows.Forms.OpenFileDialog OpenOutputFileDialog;
+        private System.Windows.Forms.ComboBox ConvertMethodComboBox;
+        private System.Windows.Forms.Button OutputButton;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 

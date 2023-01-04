@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ConvertImageTool.Common.FileResorce;
+using ConvertImageTool.Common.ImageResorce;
 
 namespace ConvertImageTool.ViewModel
 {
     public class MainFormViewModel : BaseViewModel
     {
+        Logger log = LogManager.GetCurrentClassLogger();
+
         //private System.Windows.Forms.TabControl tabControl1;
         //private System.Windows.Forms.TabPage BrightnessAndContrastTab;
         //private System.Windows.Forms.TabPage GammaTab;
@@ -27,6 +27,7 @@ namespace ConvertImageTool.ViewModel
         private string _inputPathText;
         private Image _inputImage;
         private Image _outputImage;
+        private ConvertCondition _condition;
 
 
         public string InputPathText
@@ -53,6 +54,22 @@ namespace ConvertImageTool.ViewModel
         {
             get { return this._outputImage; }
         }
+        public ConvertPattern CovertMethod
+        {
+            get { return this._condition.ConvertMethod; }
+            set
+            {
+                if (this._condition.ConvertMethod == value)
+                {
+                    return;
+                }
+                else
+                {
+                    this._condition.ConvertMethod = value;
+                    OnPropertyChanged("InputPathText");
+                }
+            }
+        }
 
 
         public MainFormViewModel()
@@ -60,19 +77,48 @@ namespace ConvertImageTool.ViewModel
             this._inputImage = null;
             this._outputImage = null;
 
+            this._condition = new ConvertCondition(ConvertPattern.Default,1);
         }
 
         public void LoadPicture()
         {
-            this._inputImage = Image.FromFile(this.InputPathText);            
+            try
+            {
+                using (Image tmpImage = FileOperation.LoadFromFilePath<Image>(this.InputPathText))
+                {
+                    this._inputImage = ImageOperation.Resize(tmpImage, 360, 360);
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error("画像の取り込みに失敗しました。",ex.Message);
+            }
+        }
+
+        public void ConvertPicture()
+        {
+            try
+            {
+                this._outputImage = ImageOperation.Convert(this.InputImage, this._condition);
+            }
+            catch (Exception ex)
+            {
+                log.Error("画像の変換に失敗しました。", ex.Message);
+            }
         }
 
 
         ~MainFormViewModel()
         {
-            this._inputImage.Dispose();
-            this._outputImage.Dispose();
+            if(this._inputImage!=null)
+            {
+                this._inputImage.Dispose();
+            }
 
+            if (this._outputImage != null)
+            {
+                this._outputImage.Dispose();
+            }
         }
     }
 }

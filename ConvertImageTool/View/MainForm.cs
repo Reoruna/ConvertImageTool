@@ -1,4 +1,6 @@
-﻿using ConvertImageTool.ViewModel;
+﻿using ConvertImageTool.Common;
+using ConvertImageTool.Common.ImageResorce;
+using ConvertImageTool.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +24,13 @@ namespace ConvertImageTool
             this._viewModel = new MainFormViewModel();
 
             this.InputPathText.DataBindings.Add("Text", this._viewModel, "InputPathText");
+            this.ConvertMethodComboBox.DataSource = Enum.GetValues(typeof(ConvertPattern));
+            this.FormLoad();
+        }
 
+        private void FormLoad()
+        {
+            this.ConvertMethodComboBox.SelectedIndex = 0;
         }
 
         private void ReferInputButton_Click(object sender, EventArgs e)
@@ -35,5 +43,15 @@ namespace ConvertImageTool
             }
         }
 
+        private void OutputButton_Click(object sender, EventArgs e)
+        {
+            this._viewModel.ConvertPicture();
+            this.OutputPictureBox.Image = this._viewModel.OutputImage;
+        }
+
+        private void ConvertMethodComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this._viewModel.CovertMethod = (ConvertPattern)this.ConvertMethodComboBox.SelectedValue;
+        }
     }
 }
