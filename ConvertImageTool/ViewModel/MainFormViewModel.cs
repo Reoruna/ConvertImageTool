@@ -24,6 +24,9 @@ namespace ConvertImageTool.ViewModel
         //private System.Windows.Forms.OpenFileDialog OpenInputFileDialog;
         //private System.Windows.Forms.OpenFileDialog OpenOutputFileDialog;
 
+        private const int IMAGE_WIDTH = 360;
+        private const int IMAGE_HEIGHT = 360;
+
         private string _inputPathText;
         private Image _inputImage;
         private Image _outputImage;
@@ -86,7 +89,9 @@ namespace ConvertImageTool.ViewModel
             {
                 using (Image tmpImage = FileOperation.LoadFromFilePath<Image>(this.InputPathText))
                 {
-                    this._inputImage = ImageOperation.Resize(tmpImage, 360, 360);
+                    this._inputImage = ImageOperation.Resize(tmpImage, IMAGE_HEIGHT, IMAGE_WIDTH);
+
+                    log.Info("画像の取り込みが完了しました。パス：{0}", this.InputPathText);
                 }
             }
             catch(Exception ex)
@@ -95,15 +100,18 @@ namespace ConvertImageTool.ViewModel
             }
         }
 
-        public void ConvertPicture()
+        public bool ConvertPicture()
         {
             try
             {
-                this._outputImage = ImageOperation.Convert(this.InputImage, this._condition);
+                var imageInfo = new ImageInfo(this._inputImage, IMAGE_HEIGHT, IMAGE_WIDTH);
+                this._outputImage = ImageOperation.Convert(imageInfo, this._condition);
+                return true;
             }
             catch (Exception ex)
             {
                 log.Error("画像の変換に失敗しました。", ex.Message);
+                return false;
             }
         }
 

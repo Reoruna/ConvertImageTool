@@ -45,11 +45,22 @@ namespace ConvertImageTool
 
         private void OutputButton_Click(object sender, EventArgs e)
         {
-            this._viewModel.ConvertPicture();
-            this.OutputPictureBox.Image = this._viewModel.OutputImage;
+            var result = this._viewModel.ConvertPicture();
+            if(result)
+            {
+                this.OutputPictureBox.Image = this._viewModel.OutputImage;
+                MessageBox.Show("画像変換に成功しました。", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("画像変換に失敗しました。","Result",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+
         }
 
-        private void ConvertMethodComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+
+        private void ConvertMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this._viewModel.CovertMethod = (ConvertPattern)this.ConvertMethodComboBox.SelectedValue;
         }

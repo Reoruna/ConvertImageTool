@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="FileResorce\FileOperation.cs" />
     <Compile Include="ImageResorce\ConvertCondition.cs" />
+    <Compile Include="ImageResorce\ImageInfo.cs" />
     <Compile Include="ImageResorce\ImageOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
